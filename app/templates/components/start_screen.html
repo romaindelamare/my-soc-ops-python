@@ -1,31 +1,40 @@
 <div id="game-container">
-<div class="flex flex-col items-center justify-center min-h-full p-6 bg-gray-50">
-    <div class="text-center max-w-sm w-full">
-        <p class="text-xs uppercase tracking-widest mb-4 fade-in-1" style="color:var(--fg)">Social Bingo</p>
-        <h1 class="text-display font-extrabold uppercase tracking-widest mb-8 fade-in-2">Soc Ops</h1>
+<div class="broadcast-layout">
 
-        <ul class="list-none text-left mb-16 fade-in-3">
-            <li class="rule-item mb-4">
-                <span class="rule-item__n">01</span>
-                <span class="rule-item__text">Find people who match the prompts</span>
+    <!-- Phase 1: Typographic masthead — headline slides in from top -->
+    <header class="broadcast-masthead broadcast-phase-1">
+        <span class="broadcast-label">Social Bingo</span>
+        <h1 class="broadcast-headline">Soc<br>Ops</h1>
+    </header>
+
+    <!-- Phase 2: Metadata strip + command-feed rules + CTA bar -->
+    <div class="broadcast-body broadcast-phase-2">
+        <div class="broadcast-meta">
+            <span class="broadcast-meta__item">Mission Brief</span>
+            <span class="broadcast-meta__sep"></span>
+            <span class="broadcast-meta__item">Field Game</span>
+            <span class="broadcast-meta__sep"></span>
+            <span class="broadcast-meta__item">3 Rules</span>
+        </div>
+
+        <ol class="broadcast-feed">
+            <li class="broadcast-feed__line">
+                <span class="broadcast-feed__n">01</span>
+                <span class="broadcast-feed__text">Find people who match the prompts</span>
             </li>
-            <li class="rule-item mb-4">
-                <span class="rule-item__n">02</span>
-                <span class="rule-item__text">Tap a square when you find a match</span>
+            <li class="broadcast-feed__line">
+                <span class="broadcast-feed__n">02</span>
+                <span class="broadcast-feed__text">Tap a square when you find a match</span>
             </li>
-            <li class="rule-item mb-8">
-                <span class="rule-item__n">03</span>
-                <span class="rule-item__text">Get 5 in a row to win</span>
+            <li class="broadcast-feed__line">
+                <span class="broadcast-feed__n">03</span>
+                <span class="broadcast-feed__text">Get 5 in a row to win</span>
             </li>
-        </ul>
+        </ol>
 
         {% if static_mode %}
-        <a
-            href="docs/"
-            class="block w-full bg-accent text-dark font-bold py-4 px-8 text-sm uppercase tracking-widest fade-in-4 active:bg-accent-light transition-colors text-center">
-            Open Workshop Guide
-        </a>
-        <p class="text-xs mt-4" style="color:var(--muted)">
+        <a href="docs/" class="broadcast-cta">Open Workshop Guide</a>
+        <p class="broadcast-static-note">
             GitHub Pages hosts a static preview. Run locally for full gameplay.
         </p>
         {% else %}
@@ -33,10 +42,11 @@
             hx-post="/start"
             hx-target="#game-container"
             hx-swap="outerHTML"
-            class="w-full bg-accent text-dark font-bold py-4 px-8 text-sm uppercase tracking-widest fade-in-4 active:bg-accent-light transition-colors">
+            class="broadcast-cta">
             Start Game
         </button>
         {% endif %}
     </div>
+
 </div>
 </div>

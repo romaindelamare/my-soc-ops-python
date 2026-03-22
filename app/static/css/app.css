@@ -220,3 +220,163 @@ button:disabled {
 
 /* backward-compat: old bounce class → slide-up */
 .animate-\[bounce_0\.5s_ease-out\] { animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* ══════════════════════════════════════════════
+   VARIATION B — Broadcast Briefing Start Screen
+   ══════════════════════════════════════════════ */
+
+.broadcast-layout {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+/* Masthead: expands to fill remaining height, headline anchored to bottom */
+.broadcast-masthead {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 1.5rem 1.5rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.broadcast-label {
+    font-size: 0.5625rem;
+    font-weight: 700;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.375rem;
+}
+
+.broadcast-headline {
+    font-size: clamp(3.5rem, 17vw, 9rem);
+    font-weight: 900;
+    line-height: 0.88;
+    letter-spacing: -0.025em;
+    text-transform: uppercase;
+    color: var(--fg);
+    margin: 0;
+}
+
+/* Body: metadata strip + command-feed rules + CTA bar */
+.broadcast-body {
+    display: flex;
+    flex-direction: column;
+}
+
+/* Horizontal metadata strip */
+.broadcast-meta {
+    display: flex;
+    align-items: center;
+    padding: 0.625rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    scrollbar-width: none;
+}
+
+.broadcast-meta::-webkit-scrollbar { display: none; }
+
+.broadcast-meta__item {
+    font-size: 0.5625rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.broadcast-meta__sep {
+    width: 1px;
+    height: 0.625rem;
+    background: var(--border);
+    margin: 0 0.75rem;
+    flex-shrink: 0;
+}
+
+/* Command-feed rules block */
+.broadcast-feed {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.broadcast-feed__line {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.75rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+}
+
+.broadcast-feed__n {
+    font-size: 0.5625rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    flex-shrink: 0;
+    min-width: 1.25rem;
+}
+
+.broadcast-feed__text {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    color: var(--fg);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    line-height: 1.3;
+}
+
+/* Full-width CTA callout bar */
+.broadcast-cta {
+    display: block;
+    width: 100%;
+    background: var(--accent);
+    color: var(--bg);
+    font-family: var(--font);
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    text-align: center;
+    text-decoration: none;
+    padding: 1.25rem 2rem;
+    border: none;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+
+.broadcast-cta:active { background: var(--accent-dim); }
+
+.broadcast-static-note {
+    font-size: 0.6875rem;
+    color: var(--muted);
+    text-align: center;
+    padding: 0.75rem 1.5rem;
+}
+
+/* Broadcast Variation B — two-phase reveal animations */
+@keyframes broadcastRevealHead {
+    from { opacity: 0; transform: translateY(-20px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes broadcastRevealFeed {
+    from { opacity: 0; transform: translateY(10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.broadcast-phase-1 {
+    opacity: 0;
+    animation: broadcastRevealHead 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    animation-delay: 0s;
+}
+
+.broadcast-phase-2 {
+    opacity: 0;
+    animation: broadcastRevealFeed 0.45s ease-out forwards;
+    animation-delay: 0.28s;
+}
