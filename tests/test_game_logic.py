@@ -31,7 +31,7 @@ class TestGenerateBoard:
     def test_all_questions_from_pool(self) -> None:
         board = generate_board()
         texts = {s.text for s in board if not s.is_free_space}
-        assert texts.issubset(set(QUESTIONS))
+        assert texts.issubset(set(QUESTIONS))  # PROBE
 
     def test_squares_have_sequential_ids(self) -> None:
         board = generate_board()
