@@ -1,42 +1,58 @@
 <div id="game-container">
-<div class="flex flex-col items-center justify-center min-h-full p-6 bg-gray-50">
-    <div class="text-center max-w-sm w-full">
-        <p class="text-xs uppercase tracking-widest mb-4 fade-in-1" style="color:var(--fg)">Social Bingo</p>
-        <h1 class="text-display font-extrabold uppercase tracking-widest mb-8 fade-in-2">Soc Ops</h1>
+<div class="console-shell">
+    <div class="console-layout">
 
-        <ul class="list-none text-left mb-16 fade-in-3">
-            <li class="rule-item mb-4">
-                <span class="rule-item__n">01</span>
-                <span class="rule-item__text">Find people who match the prompts</span>
-            </li>
-            <li class="rule-item mb-4">
-                <span class="rule-item__n">02</span>
-                <span class="rule-item__text">Tap a square when you find a match</span>
-            </li>
-            <li class="rule-item mb-8">
-                <span class="rule-item__n">03</span>
-                <span class="rule-item__text">Get 5 in a row to win</span>
-            </li>
-        </ul>
+        <!-- ── Left panel: hero ── -->
+        <div class="console-panel console-panel--hero fade-in-1">
+            <p class="console-label">Social Bingo</p>
+            <div class="hero-title-wrap">
+                <h1 class="hero-title">Soc<br>Ops</h1>
+                <div class="scanner-line" aria-hidden="true"></div>
+            </div>
+            <p class="hero-brief">Locate targets.<br>Mark contacts.<br>Complete the mission.</p>
+        </div>
 
-        {% if static_mode %}
-        <a
-            href="docs/"
-            class="block w-full bg-accent text-dark font-bold py-4 px-8 text-sm uppercase tracking-widest fade-in-4 active:bg-accent-light transition-colors text-center">
-            Open Workshop Guide
-        </a>
-        <p class="text-xs mt-4" style="color:var(--muted)">
-            GitHub Pages hosts a static preview. Run locally for full gameplay.
-        </p>
-        {% else %}
-        <button
-            hx-post="/start"
-            hx-target="#game-container"
-            hx-swap="outerHTML"
-            class="w-full bg-accent text-dark font-bold py-4 px-8 text-sm uppercase tracking-widest fade-in-4 active:bg-accent-light transition-colors">
-            Start Game
-        </button>
-        {% endif %}
+        <!-- ── Divider ── -->
+        <div class="console-divider" aria-hidden="true"></div>
+
+        <!-- ── Right panel: rules + CTA ── -->
+        <div class="console-panel console-panel--ops">
+            <p class="console-label fade-in-2">Mission Brief</p>
+            <ul class="list-none console-rules fade-in-3">
+                <li class="rule-item mb-4">
+                    <span class="rule-item__n">01</span>
+                    <span class="rule-item__text">Find people who match the prompts</span>
+                </li>
+                <li class="rule-item mb-4">
+                    <span class="rule-item__n">02</span>
+                    <span class="rule-item__text">Tap a square when you find a match</span>
+                </li>
+                <li class="rule-item mb-8">
+                    <span class="rule-item__n">03</span>
+                    <span class="rule-item__text">Get 5 in a row to win</span>
+                </li>
+            </ul>
+
+            {% if static_mode %}
+            <a
+                href="docs/"
+                class="block w-full bg-accent text-dark font-bold py-4 px-8 text-sm uppercase tracking-widest fade-in-4 active:bg-accent-light transition-colors text-center">
+                Open Workshop Guide
+            </a>
+            <p class="text-xs mt-4" style="color:var(--muted)">
+                GitHub Pages hosts a static preview. Run locally for full gameplay.
+            </p>
+            {% else %}
+            <button
+                hx-post="/start"
+                hx-target="#game-container"
+                hx-swap="outerHTML"
+                class="console-cta fade-in-4 active:bg-accent-light transition-colors">
+                Start Game
+            </button>
+            {% endif %}
+        </div>
+
     </div>
 </div>
 </div>

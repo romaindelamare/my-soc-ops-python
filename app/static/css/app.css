@@ -220,3 +220,165 @@ button:disabled {
 
 /* backward-compat: old bounce class → slide-up */
 .animate-\[bounce_0\.5s_ease-out\] { animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* ══════════════════════════════════════════════
+   MISSION CONSOLE — Start screen (Variation A)
+   ══════════════════════════════════════════════ */
+
+/* Outer shell: fills viewport, centers the console */
+.console-shell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100%;
+    padding: 2rem 1.5rem;
+    background-color: var(--bg);
+}
+
+/* Two-panel grid: side-by-side on desktop, stacked on mobile */
+.console-layout {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto;
+    width: 100%;
+    max-width: 52rem;
+    border: 1px solid var(--border);
+}
+
+@media (min-width: 640px) {
+    .console-layout {
+        grid-template-columns: 1fr 1px 1fr;
+        grid-template-rows: 1fr;
+    }
+}
+
+/* Shared panel base */
+.console-panel {
+    padding: 2.5rem 2rem;
+}
+
+/* Hero panel (left) */
+.console-panel--hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 2rem;
+    border-bottom: 1px solid var(--border);
+}
+
+@media (min-width: 640px) {
+    .console-panel--hero {
+        border-bottom: none;
+    }
+}
+
+/* Ops panel (right) */
+.console-panel--ops {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Vertical divider between panels (desktop only) */
+.console-divider {
+    display: none;
+    background-color: var(--border);
+    width: 1px;
+}
+
+@media (min-width: 640px) {
+    .console-divider {
+        display: block;
+    }
+}
+
+/* Small uppercase section label */
+.console-label {
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-bottom: 0;
+}
+
+/* Hero title wrapper — position context for scanner */
+.hero-title-wrap {
+    position: relative;
+    overflow: hidden;
+}
+
+/* Large display title */
+.hero-title {
+    font-size: clamp(3.5rem, 10vw, 6rem);
+    font-weight: 800;
+    line-height: 0.9;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    color: var(--fg);
+    margin: 0;
+    padding-bottom: 0.25em;
+}
+
+/* Restrained horizontal scanner sweep */
+@keyframes scannerSweep {
+    0%   { top: -2px;  opacity: 0; }
+    4%   { opacity: 1; }
+    96%  { opacity: 1; }
+    100% { top: calc(100% + 2px); opacity: 0; }
+}
+
+.scanner-line {
+    position: absolute;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--accent);
+    top: -2px;
+    opacity: 0;
+    animation: scannerSweep 3.2s cubic-bezier(0.4, 0, 0.6, 1) 0.6s infinite;
+    pointer-events: none;
+}
+
+/* Mission brief tagline */
+.hero-brief {
+    font-size: 0.75rem;
+    line-height: 1.7;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    margin: 0;
+}
+
+/* Rules list inside ops panel */
+.console-rules {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1.5rem 0;
+}
+
+/* Respect reduced-motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .scanner-line {
+        animation: none;
+        display: none;
+    }
+}
+
+/* CTA button */
+.console-cta {
+    display: block;
+    width: 100%;
+    background-color: var(--accent);
+    color: var(--bg);
+    font-family: var(--font);
+    font-weight: 700;
+    font-size: 0.875rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    padding: 1rem 2rem;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
