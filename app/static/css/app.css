@@ -142,6 +142,120 @@ body {
     line-height: 1.5;
 }
 
+/* ── Start landing ── */
+.landing-shell {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+}
+
+.landing-shell::before,
+.landing-shell::after {
+    content: "";
+    position: absolute;
+    pointer-events: none;
+}
+
+.landing-shell::before {
+    width: 28rem;
+    height: 28rem;
+    top: -14rem;
+    right: -10rem;
+    background:
+        radial-gradient(circle at center, rgba(255, 73, 38, 0.26) 0%, rgba(255, 73, 38, 0) 68%);
+}
+
+.landing-shell::after {
+    left: 1.5rem;
+    right: 1.5rem;
+    bottom: 2rem;
+    height: 1px;
+    background: linear-gradient(90deg, rgba(255, 73, 38, 0), rgba(255, 73, 38, 0.85), rgba(255, 73, 38, 0));
+}
+
+.landing-grid {
+    width: 100%;
+    max-width: 60rem;
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 1.5rem;
+}
+
+.landing-hero {
+    border: 1px solid var(--border);
+    background:
+        linear-gradient(180deg, rgba(255, 73, 38, 0.05) 0%, rgba(255, 73, 38, 0) 42%),
+        var(--surface);
+    padding: 2rem;
+}
+
+.landing-kicker {
+    color: var(--accent);
+}
+
+.landing-copy {
+    color: var(--muted);
+    max-width: 32ch;
+    line-height: 1.6;
+}
+
+.landing-panel {
+    border: 1px solid var(--border);
+    background: var(--surface);
+    padding: 2rem;
+}
+
+.scanline {
+    height: 3rem;
+    border: 1px solid var(--border);
+    background:
+        linear-gradient(180deg, rgba(240, 237, 230, 0.08), rgba(240, 237, 230, 0) 60%),
+        repeating-linear-gradient(
+            90deg,
+            rgba(240, 237, 230, 0.08) 0,
+            rgba(240, 237, 230, 0.08) 1px,
+            transparent 1px,
+            transparent 10px
+        ),
+        var(--bg);
+    position: relative;
+    overflow: hidden;
+}
+
+.scanline::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg, rgba(255, 73, 38, 0), rgba(255, 73, 38, 0.95), rgba(255, 73, 38, 0));
+    transform: translateX(-100%);
+    animation: radarSweep 2.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+@media (max-width: 820px) {
+    .landing-shell {
+        align-items: flex-start;
+        padding-top: 3.5rem;
+        padding-bottom: 3rem;
+    }
+
+    .landing-grid {
+        grid-template-columns: 1fr;
+        max-width: 32rem;
+    }
+
+    .landing-hero,
+    .landing-panel {
+        padding: 1.5rem;
+    }
+
+    .landing-copy {
+        max-width: 100%;
+    }
+}
+
 /* ── Borders ── */
 .border   { border-width: 1px; border-style: solid; }
 .border-b { border-bottom-width: 1px; border-bottom-style: solid; }
@@ -203,6 +317,11 @@ button:disabled {
 @keyframes fadeSlideUp {
     from { opacity: 0; transform: translateY(14px); }
     to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes radarSweep {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(100%); }
 }
 
 .fade-in-1 { opacity: 0; animation: fadeSlideUp 0.45s ease-out forwards; animation-delay: 0s; }
