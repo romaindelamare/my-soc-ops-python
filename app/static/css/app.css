@@ -220,3 +220,182 @@ button:disabled {
 
 /* backward-compat: old bounce class → slide-up */
 .animate-\[bounce_0\.5s_ease-out\] { animation: slideUp 0.35s cubic-bezier(0.16, 1, 0.3, 1) both; }
+
+/* ── Variation C: Field Dossier ── */
+.dossier-page {
+    min-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.25rem;
+    background-color: var(--bg);
+    background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
+    background-size: 18px 18px;
+}
+
+.dossier-card {
+    width: 100%;
+    max-width: 28rem;
+    border: 1px solid var(--border);
+    background-color: var(--surface);
+}
+
+.dossier-topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0.5rem 1.25rem;
+    border-bottom: 1px solid var(--border);
+    background-color: var(--surface-up);
+}
+
+.dossier-meta {
+    font-size: 0.5rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.dossier-hero {
+    padding: 2rem 1.5rem 1.5rem;
+}
+
+.dossier-eyebrow {
+    font-size: 0.5625rem;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0 0 0.75rem;
+}
+
+.dossier-op-title {
+    font-size: 3.5rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--fg);
+    margin: 0;
+    line-height: 1;
+}
+
+.dossier-rule {
+    height: 1px;
+    background-color: var(--border);
+}
+
+.dossier-intel {
+    padding: 1.25rem 1.5rem;
+}
+
+.dossier-section-tag {
+    font-size: 0.5625rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin: 0 0 0.875rem;
+}
+
+.dossier-checklist {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dossier-check-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.75rem;
+    padding: 0.625rem 0;
+    border-top: 1px solid var(--border);
+}
+
+.dossier-check-item:first-child {
+    border-top: none;
+    padding-top: 0;
+}
+
+.dossier-check-box {
+    font-size: 0.75rem;
+    color: var(--accent);
+    flex-shrink: 0;
+    line-height: 1.6;
+}
+
+.dossier-check-body {
+    font-size: 0.875rem;
+    color: var(--fg);
+    line-height: 1.5;
+}
+
+.dossier-check-code {
+    font-size: 0.5rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--muted);
+    margin-right: 0.25rem;
+}
+
+.dossier-footer {
+    padding: 1.25rem 1.5rem;
+}
+
+.dossier-authorize-btn {
+    display: block;
+    width: 100%;
+    background-color: var(--accent);
+    color: var(--bg);
+    font-family: var(--font);
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 1rem 1.5rem;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    position: relative;
+    overflow: hidden;
+    transition: background-color 100ms;
+    box-sizing: border-box;
+}
+
+.dossier-authorize-btn:active {
+    background-color: var(--accent-dim);
+}
+
+@keyframes dossierScan {
+    0%   { transform: translateY(-100%); opacity: 0; }
+    15%  { opacity: 0.35; }
+    85%  { opacity: 0.35; }
+    100% { transform: translateY(500%); opacity: 0; }
+}
+
+.dossier-authorize-btn::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    height: 35%;
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        rgba(255, 255, 255, 0.2) 50%,
+        transparent 100%
+    );
+    animation: dossierScan 2.8s ease-in-out infinite;
+    pointer-events: none;
+}
+
+.dossier-static-note {
+    font-size: 0.6875rem;
+    color: var(--muted);
+    margin: 0.75rem 0 0;
+    text-align: center;
+    line-height: 1.5;
+}
