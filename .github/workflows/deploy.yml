@@ -46,17 +46,14 @@ jobs:
           cp -r app/static/* ./_site/app/static/
 
           # Render the start screen as the site root for GitHub Pages
-          uv run python -c "
+          uv run python <<'PY'
           from jinja2 import Environment, FileSystemLoader
-          from app.models import GameState
           from app.game_service import GameSession
+          from app.models import GameState
 
           env = Environment(loader=FileSystemLoader('app/templates'))
-
-          # For static deploy, we need a self-contained HTML file
           session = GameSession()
 
-          # Render home.html (extends base.html, so produces full page)
           template = env.get_template('home.html')
           full_html = template.render(
               session=session,
@@ -64,9 +61,9 @@ jobs:
               url_for=lambda name, path='': f'app/static/{path}' if name == 'static' else path,
           )
 
-            with open('_site/index.html', 'w') as f:
+          with open('_site/index.html', 'w') as f:
               f.write(full_html)
-          "
+          PY
           
           # Prevent Jekyll processing
           touch ./_site/.nojekyll
