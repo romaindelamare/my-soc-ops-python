@@ -1,42 +1,69 @@
 <div id="game-container">
-<div class="flex flex-col items-center justify-center min-h-full p-6 bg-gray-50">
-    <div class="text-center max-w-sm w-full">
-        <p class="text-xs uppercase tracking-widest mb-4 fade-in-1" style="color:var(--fg)">Social Bingo</p>
-        <h1 class="text-display font-extrabold uppercase tracking-widest mb-8 fade-in-2">Soc Ops</h1>
+<div class="dossier-page">
+    <div class="dossier-card fade-in-1">
 
-        <ul class="list-none text-left mb-16 fade-in-3">
-            <li class="rule-item mb-4">
-                <span class="rule-item__n">01</span>
-                <span class="rule-item__text">Find people who match the prompts</span>
-            </li>
-            <li class="rule-item mb-4">
-                <span class="rule-item__n">02</span>
-                <span class="rule-item__text">Tap a square when you find a match</span>
-            </li>
-            <li class="rule-item mb-8">
-                <span class="rule-item__n">03</span>
-                <span class="rule-item__text">Get 5 in a row to win</span>
-            </li>
-        </ul>
+        <div class="dossier-topbar">
+            <span class="dossier-meta">OP · Social Bingo</span>
+            <span class="dossier-meta">REF · SOC-OPS-001</span>
+        </div>
 
-        {% if static_mode %}
-        <a
-            href="docs/"
-            class="block w-full bg-accent text-dark font-bold py-4 px-8 text-sm uppercase tracking-widest fade-in-4 active:bg-accent-light transition-colors text-center">
-            Open Workshop Guide
-        </a>
-        <p class="text-xs mt-4" style="color:var(--muted)">
-            GitHub Pages hosts a static preview. Run locally for full gameplay.
-        </p>
-        {% else %}
-        <button
-            hx-post="/start"
-            hx-target="#game-container"
-            hx-swap="outerHTML"
-            class="w-full bg-accent text-dark font-bold py-4 px-8 text-sm uppercase tracking-widest fade-in-4 active:bg-accent-light transition-colors">
-            Start Game
-        </button>
-        {% endif %}
+        <div class="dossier-hero">
+            <p class="dossier-eyebrow">Mission Brief</p>
+            <h1 class="dossier-op-title">Soc Ops</h1>
+        </div>
+
+        <div class="dossier-rule"></div>
+
+        <div class="dossier-intel">
+            <p class="dossier-section-tag">Field Directives</p>
+            <ul class="dossier-checklist">
+                <li class="dossier-check-item">
+                    <span class="dossier-check-box">▣</span>
+                    <div class="dossier-check-body">
+                        <span class="dossier-check-code">DIRECTIVE 01 —</span>
+                        Find people who match the prompts
+                    </div>
+                </li>
+                <li class="dossier-check-item">
+                    <span class="dossier-check-box">▣</span>
+                    <div class="dossier-check-body">
+                        <span class="dossier-check-code">DIRECTIVE 02 —</span>
+                        Tap a square when you find a match
+                    </div>
+                </li>
+                <li class="dossier-check-item">
+                    <span class="dossier-check-box">▣</span>
+                    <div class="dossier-check-body">
+                        <span class="dossier-check-code">DIRECTIVE 03 —</span>
+                        Get 5 in a row to win
+                    </div>
+                </li>
+            </ul>
+        </div>
+
+        <div class="dossier-rule"></div>
+
+        <div class="dossier-footer">
+            {% if static_mode %}
+            <a
+                href="docs/"
+                class="dossier-authorize-btn">
+                Open Workshop Guide
+            </a>
+            <p class="dossier-static-note">
+                GitHub Pages hosts a static preview. Run locally for full gameplay.
+            </p>
+            {% else %}
+            <button
+                hx-post="/start"
+                hx-target="#game-container"
+                hx-swap="outerHTML"
+                class="dossier-authorize-btn">
+                Start Game
+            </button>
+            {% endif %}
+        </div>
+
     </div>
 </div>
 </div>
