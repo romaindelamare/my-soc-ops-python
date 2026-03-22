@@ -58,6 +58,7 @@ jobs:
           full_html = template.render(
               session=session,
               GameState=GameState,
+              static_mode=True,
               url_for=lambda name, path='': f'app/static/{path}' if name == 'static' else path,
           )
 

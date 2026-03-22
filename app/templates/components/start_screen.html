@@ -19,6 +19,16 @@
             </li>
         </ul>
 
+        {% if static_mode %}
+        <a
+            href="docs/"
+            class="block w-full bg-accent text-dark font-bold py-4 px-8 text-sm uppercase tracking-widest fade-in-4 active:bg-accent-light transition-colors text-center">
+            Open Workshop Guide
+        </a>
+        <p class="text-xs mt-4" style="color:var(--muted)">
+            GitHub Pages hosts a static preview. Run locally for full gameplay.
+        </p>
+        {% else %}
         <button
             hx-post="/start"
             hx-target="#game-container"
@@ -26,6 +36,7 @@
             class="w-full bg-accent text-dark font-bold py-4 px-8 text-sm uppercase tracking-widest fade-in-4 active:bg-accent-light transition-colors">
             Start Game
         </button>
+        {% endif %}
     </div>
 </div>
 </div>
