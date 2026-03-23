@@ -1,5 +1,7 @@
+import random
 from dataclasses import dataclass, field
 
+from app.data import QUESTIONS
 from app.game_logic import (
     check_bingo,
     generate_board,
@@ -18,6 +20,8 @@ class GameSession:
     board: list[BingoSquareData] = field(default_factory=list)
     winning_line: BingoLine | None = None
     show_bingo_modal: bool = False
+    card_deck_questions: list[str] = field(default_factory=list)
+    current_card_index: int = -1
 
     @property
     def winning_square_ids(self) -> set[int]:
@@ -45,12 +49,32 @@ class GameSession:
             return 0
         return int((self.scavenger_marked_count * 100) / self.scavenger_total_count)
 
+    @property
+    def card_deck_current_card(self) -> str | None:
+        """Get the current card text, or None if no card has been drawn."""
+        if 0 <= self.current_card_index < len(self.card_deck_questions):
+            return self.card_deck_questions[self.current_card_index]
+        return None
+
+    @property
+    def card_deck_has_more_cards(self) -> bool:
+        """Check if there are more cards to draw."""
+        return (self.current_card_index + 1) < len(self.card_deck_questions)
+
     def start_game(self, mode: GameMode = GameMode.BINGO) -> None:
         self.mode = mode
-        self.board = generate_board()
         self.winning_line = None
         self.game_state = GameState.PLAYING
         self.show_bingo_modal = False
+
+        if mode == GameMode.CARD_DECK:
+            self.card_deck_questions = random.sample(QUESTIONS, len(QUESTIONS))
+            self.current_card_index = -1
+            self.board = []
+        else:
+            self.board = generate_board()
+            self.card_deck_questions = []
+            self.current_card_index = -1
 
     def handle_square_click(self, square_id: int) -> None:
         if self.game_state != GameState.PLAYING:
@@ -71,11 +95,24 @@ class GameSession:
             self.game_state = GameState.BINGO
             self.show_bingo_modal = True
 
+    def draw_card(self) -> None:
+        """Draw the next card from the deck."""
+        if self.mode == GameMode.CARD_DECK and self.card_deck_has_more_cards:
+            self.current_card_index += 1
+
+    def reshuffle_deck(self) -> None:
+        """Reshuffle the deck and reset to the beginning."""
+        if self.mode == GameMode.CARD_DECK:
+            self.card_deck_questions = random.sample(QUESTIONS, len(QUESTIONS))
+            self.current_card_index = -1
+
     def reset_game(self) -> None:
         self.game_state = GameState.START
         self.board = []
         self.winning_line = None
         self.show_bingo_modal = False
+        self.card_deck_questions = []
+        self.current_card_index = -1
 
     def dismiss_modal(self) -> None:
         self.show_bingo_modal = False

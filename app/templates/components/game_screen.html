@@ -14,8 +14,10 @@
         <p class="text-xs uppercase tracking-wide text-muted min-w-max">
             {% if session.mode == GameMode.BINGO %}
             Bingo
-            {% else %}
+            {% elif session.mode == GameMode.SCAVENGER %}
             Scavenger Hunt
+            {% else %}
+            Card Deck
             {% endif %}
         </p>
     </header>
@@ -47,8 +49,10 @@
     <div class="flex-1 flex {% if session.mode == GameMode.SCAVENGER %}items-start game-board-region-scavenger{% else %}items-center{% endif %} justify-center p-3 game-board-region">
         {% if session.mode == GameMode.BINGO %}
         {% include "components/bingo_board.html" %}
-        {% else %}
+        {% elif session.mode == GameMode.SCAVENGER %}
         {% include "components/scavenger_list.html" %}
+        {% else %}
+        {% include "components/card_deck.html" %}
         {% endif %}
     </div>
 </div>

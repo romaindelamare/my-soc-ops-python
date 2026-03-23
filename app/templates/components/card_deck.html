@@ -1,0 +1,55 @@
+<div class="card-deck-container">
+    <div class="card-deck-inner">
+        <!-- Card -->
+        <div class="card-deck-viewport">
+            {% if session.card_deck_current_card %}
+                <button
+                    hx-post="/draw-card"
+                    hx-target="#game-container"
+                    hx-swap="outerHTML"
+                    class="card-deck-card {% if session.card_deck_has_more_cards %}card-deck-card-shown{% endif %}">
+                    <div class="card-deck-card-text">{{ session.card_deck_current_card }}</div>
+                    <div class="card-deck-card-hint">{% if session.card_deck_has_more_cards %}tap for next{% else %}last card{% endif %}</div>
+                </button>
+            {% else %}
+                <button
+                    hx-post="/draw-card"
+                    hx-target="#game-container"
+                    hx-swap="outerHTML"
+                    class="card-deck-card card-deck-card-empty">
+                    <div class="card-deck-card-hint">tap to start</div>
+                </button>
+            {% endif %}
+        </div>
+
+        <!-- Status -->
+        <div class="card-deck-status-bar">
+            <span class="card-deck-count">
+                {% if session.card_deck_current_card %}
+                    {{ session.current_card_index + 1 }} / {{ session.card_deck_questions | length }}
+                {% else %}
+                    0 / {{ session.card_deck_questions | length }}
+                {% endif %}
+            </span>
+            <span class="card-deck-label">Cards Remaining</span>
+            <span class="card-deck-remaining">
+                {% if session.card_deck_has_more_cards %}
+                    {{ session.card_deck_questions | length - session.current_card_index - 1 }}
+                {% else %}
+                    0
+                {% endif %}
+            </span>
+        </div>
+
+        <!-- Reshuffle Button -->
+        {% if session.card_deck_current_card and not session.card_deck_has_more_cards %}
+        <button
+            hx-post="/reshuffle-deck"
+            hx-target="#game-container"
+            hx-swap="outerHTML"
+            class="card-deck-reshuffle-btn">
+            Shuffle Again
+        </button>
+        {% endif %}
+    </div>
+</div>

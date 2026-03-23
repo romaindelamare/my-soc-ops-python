@@ -82,6 +82,16 @@
                             <span class="mode-select-control" aria-hidden="true"></span>
                             <span class="mode-select-text">Scavenger Hunt</span>
                         </label>
+                        <label class="mode-select-option" for="mode-card-deck">
+                            <input
+                                id="mode-card-deck"
+                                type="radio"
+                                name="mode"
+                                value="card_deck"
+                                {% if session.mode == GameMode.CARD_DECK %}checked{% endif %}>
+                            <span class="mode-select-control" aria-hidden="true"></span>
+                            <span class="mode-select-text">Card Deck Shuffle</span>
+                        </label>
                     </div>
                 </fieldset>
                 <button type="submit" class="dossier-authorize-btn">

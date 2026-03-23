@@ -13,6 +13,7 @@ class GameState(StrEnum):
 class GameMode(StrEnum):
     BINGO = "bingo"
     SCAVENGER = "scavenger"
+    CARD_DECK = "card_deck"
 
 
 class BingoSquareData(BaseModel):

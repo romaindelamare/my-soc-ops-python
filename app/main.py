@@ -73,6 +73,20 @@ async def toggle_square(request: Request, square_id: int) -> Response:
     return _render_game_screen(request, session)
 
 
+@app.post("/draw-card", response_class=HTMLResponse)
+async def draw_card(request: Request) -> Response:
+    session = _get_game_session(request)
+    session.draw_card()
+    return _render_game_screen(request, session)
+
+
+@app.post("/reshuffle-deck", response_class=HTMLResponse)
+async def reshuffle_deck(request: Request) -> Response:
+    session = _get_game_session(request)
+    session.reshuffle_deck()
+    return _render_game_screen(request, session)
+
+
 @app.post("/reset", response_class=HTMLResponse)
 async def reset_game(request: Request) -> Response:
     session = _get_game_session(request)
