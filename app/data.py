@@ -28,3 +28,8 @@ QUESTIONS: Final[list[str]] = [
     "shares the weirdest error message they remember",
     "has solved a problem with a wildly unrelated trick",
 ]
+
+# Tech Life Bingo — replaces the default question pool
+from app.questions import TECH_LIFE_QUESTIONS  # noqa: E402
+
+QUESTIONS = TECH_LIFE_QUESTIONS  # type: ignore[assignment]
