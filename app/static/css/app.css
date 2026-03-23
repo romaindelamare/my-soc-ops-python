@@ -7,7 +7,7 @@
     --surface:      #161616;
     --surface-up:   #1f1f1f;
     --fg:           #F0EDE6;
-    --muted:        #a8a8a2;
+    --muted:        #c5c3ba;
     --border:       #2a2a28;
     --accent:       #FF4926;
     --accent-dim:   #df3b1d;
@@ -188,6 +188,70 @@ body {
 .active\:bg-gray-100:active    { background-color: var(--surface-up); }
 .active\:bg-accent-light:active { background-color: var(--accent-dim); }
 
+/* ── Focus & Hover States ── */
+.grid button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: -2px;
+}
+
+.grid button:hover:not(:disabled) {
+    background-color: rgba(255, 255, 255, 0.06);
+    border-color: var(--accent);
+}
+
+.grid button.bg-marked:hover {
+    background-color: var(--accent);
+    opacity: 0.9;
+}
+
+.hunt-item:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: -2px;
+}
+
+.hunt-item:hover:not(:disabled) {
+    background-color: var(--surface-up);
+}
+
+.mode-select-option input:focus-visible + .mode-select-control {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+.dossier-authorize-btn:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+/* ── Winning Square Visual Distinction ── */
+.grid button.bg-marked.font-bold {
+    box-shadow: 0 0 0 2px var(--accent) inset;
+    background: linear-gradient(135deg, var(--accent) 0%, #e63f1c 100%);
+}
+
+/* ── Additional Responsive Improvements ── */
+@media (max-width: 24rem) {
+    .grid {
+        gap: 0.125rem;
+    }
+    
+    .grid button {
+        min-height: 44px;
+        font-size: 0.625rem;
+        line-height: 1.2;
+    }
+    
+    .text-display {
+        font-size: 3rem;
+    }
+}
+
+@media (max-width: 20rem) {
+    .grid button {
+        min-height: 40px;
+    }
+}
+
 button {
     cursor: pointer;
     border: none;
@@ -198,6 +262,15 @@ button {
 
 button:disabled {
     cursor: default;
+}
+
+button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+button:hover:not(:disabled) {
+    opacity: 0.9;
 }
 
 /* ── Staggered entrance animations ── */
@@ -232,6 +305,25 @@ button:disabled {
     background-color: var(--bg);
     background-image: radial-gradient(circle, var(--border) 1px, transparent 1px);
     background-size: 18px 18px;
+}
+
+@media (max-width: 24rem) {
+    .dossier-page {
+        padding: 1.5rem 0.75rem;
+    }
+    
+    .dossier-op-title {
+        font-size: 2.5rem;
+        line-height: 1.1;
+    }
+    
+    .dossier-hero {
+        padding: 1.5rem 1rem 1rem;
+    }
+    
+    .dossier-intel {
+        padding: 1rem 1rem;
+    }
 }
 
 .dossier-card {
@@ -430,12 +522,13 @@ button:disabled {
 .mode-select-options {
     display: grid;
     gap: 0.5rem;
-    margin-bottom: 1rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
 }
 
 .mode-select-option {
     border: 1px solid var(--border);
-    padding: 0.5rem 0.625rem;
+    padding: 0.5rem 0.5rem 0.5rem 0.875rem;
     display: flex;
     gap: 0.5rem;
     align-items: center;
@@ -494,14 +587,15 @@ button:disabled {
     right: 0;
     z-index: 35;
     background-color: var(--bg);
+    border-bottom: 1px solid var(--border);
 }
 
 .game-shell {
-    padding-top: 3.125rem;
+    padding-top: 3.75rem;
 }
 
 .game-shell-scavenger {
-    padding-top: 6.5rem;
+    padding-top: 3.75rem;
 }
 
 .game-board-region-scavenger {
@@ -518,12 +612,13 @@ button:disabled {
 }
 
 .game-progress-sticky {
-    position: fixed;
-    top: 3.125rem;
+    position: sticky;
+    top: 3.75rem;
     left: 0;
     right: 0;
     z-index: 34;
     background-color: var(--bg);
+    border-bottom: 1px solid var(--border);
 }
 
 .hunt-progress-label {
@@ -605,9 +700,10 @@ button:disabled {
 
 .hunt-box {
     color: var(--accent);
-    font-size: 0.875rem;
+    font-size: 0.95rem;
     line-height: 1.3;
     flex-shrink: 0;
+    font-weight: 600;
 }
 
 .hunt-item-text {
@@ -630,12 +726,17 @@ button:disabled {
 
 .modal-panel {
     max-width: 26rem;
+    border: 1px solid var(--border);
 }
 
 .modal-copy-block {
     width: 100%;
     text-align: center;
     margin: 0 auto;
+}
+
+.modal-panel h2 {
+    color: var(--fg);
 }
 
 @keyframes huntProgressPulse {

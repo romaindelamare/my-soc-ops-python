@@ -18,6 +18,7 @@ app.add_middleware(SessionMiddleware, secret_key="soc-ops-secret-key")
 app.mount("/static", StaticFiles(directory=BASE_DIR / "static"), name="static")
 
 templates = Jinja2Templates(directory=BASE_DIR / "templates")
+VALID_GAME_MODE_VALUES = {member.value for member in GameMode}
 
 
 def _get_game_session(request: Request) -> GameSession:
@@ -25,6 +26,25 @@ def _get_game_session(request: Request) -> GameSession:
     if "session_id" not in request.session:
         request.session["session_id"] = uuid.uuid4().hex
     return get_session(request.session["session_id"])
+
+
+def _get_requested_mode(
+    request: Request, body_params: dict[str, list[str]]
+) -> GameMode:
+    mode_raw = request.query_params.get("mode")
+    if mode_raw is None:
+        mode_raw = body_params.get("mode", [GameMode.BINGO.value])[0]
+    if mode_raw in VALID_GAME_MODE_VALUES:
+        return GameMode(mode_raw)
+    return GameMode.BINGO
+
+
+def _render_game_screen(request: Request, session: GameSession) -> Response:
+    return templates.TemplateResponse(
+        request,
+        "components/game_screen.html",
+        {"session": session, "GameMode": GameMode},
+    )
 
 
 @app.get("/", response_class=HTMLResponse)
@@ -40,30 +60,17 @@ async def home(request: Request) -> Response:
 @app.post("/start", response_class=HTMLResponse)
 async def start_game(request: Request) -> Response:
     session = _get_game_session(request)
-    mode_raw = request.query_params.get("mode")
-    if mode_raw is None:
-        body_params = parse_qs((await request.body()).decode("utf-8"))
-        mode_raw = body_params.get("mode", [GameMode.BINGO.value])[0]
-    mode = GameMode.BINGO
-    if mode_raw in {member.value for member in GameMode}:
-        mode = GameMode(mode_raw)
+    body_params = parse_qs((await request.body()).decode("utf-8"))
+    mode = _get_requested_mode(request, body_params)
     session.start_game(mode)
-    return templates.TemplateResponse(
-        request,
-        "components/game_screen.html",
-        {"session": session, "GameMode": GameMode},
-    )
+    return _render_game_screen(request, session)
 
 
 @app.post("/toggle/{square_id}", response_class=HTMLResponse)
 async def toggle_square(request: Request, square_id: int) -> Response:
     session = _get_game_session(request)
     session.handle_square_click(square_id)
-    return templates.TemplateResponse(
-        request,
-        "components/game_screen.html",
-        {"session": session, "GameMode": GameMode},
-    )
+    return _render_game_screen(request, session)
 
 
 @app.post("/reset", response_class=HTMLResponse)
@@ -81,11 +88,7 @@ async def reset_game(request: Request) -> Response:
 async def dismiss_modal(request: Request) -> Response:
     session = _get_game_session(request)
     session.dismiss_modal()
-    return templates.TemplateResponse(
-        request,
-        "components/game_screen.html",
-        {"session": session, "GameMode": GameMode},
-    )
+    return _render_game_screen(request, session)
 
 
 def run() -> None:

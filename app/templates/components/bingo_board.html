@@ -1,4 +1,4 @@
-<div class="grid grid-cols-5 gap-1 w-full max-w-md mx-auto aspect-square font-grid">
+<div class="grid grid-cols-5 gap-1 w-full max-w-md mx-auto aspect-square font-grid motion-safe:animate-none">
     {% for square in session.board %}
     {% set is_winning = square.id in session.winning_square_ids %}
     <button
@@ -8,7 +8,7 @@
         hx-swap="outerHTML"
         {% endif %}
         {% if square.is_free_space %}disabled{% endif %}
-        class="flex items-center justify-center p-1 text-center border border-gray-300 transition-all duration-150 select-none min-h-[60px] text-xs leading-tight
+        class="flex items-center justify-center p-1 text-center border border-gray-300 transition-all duration-150 select-none min-h-[48px] text-xs leading-tight
         {%- if square.is_marked %}
             {%- if is_winning %} bg-marked border-marked-border text-dark font-bold
             {%- else %} bg-marked border-marked-border text-dark

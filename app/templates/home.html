@@ -1,9 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
+<main aria-label="Soc Ops game">
 {% if session.game_state == GameState.START %}
     {% include "components/start_screen.html" %}
 {% else %}
     {% include "components/game_screen.html" %}
 {% endif %}
+</main>
 {% endblock %}

@@ -13,7 +13,7 @@
                 aria-pressed="{{ 'true' if square.is_marked else 'false' }}"
                 aria-label="{{ square.text }}">
                 <span class="hunt-box" aria-hidden="true">
-                    {% if square.is_marked %}☑{% else %}☐{% endif %}
+                    {% if square.is_marked %}✓{% else %}☐{% endif %}
                 </span>
                 <span class="hunt-item-text">
                     {{ square.text }}

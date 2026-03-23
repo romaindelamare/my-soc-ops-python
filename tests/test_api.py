@@ -100,3 +100,29 @@ class TestDismissModal:
         response = client.post("/dismiss-modal")
         assert response.status_code == 200
         assert "FREE SPACE" in response.text
+
+
+class TestUIAccessibility:
+    def test_home_contains_main_landmark(self, client: TestClient) -> None:
+        response = client.get("/")
+
+        assert response.status_code == 200
+        assert "<main" in response.text
+        assert 'id="game-container"' in response.text
+
+    def test_mode_selector_uses_fieldset_and_legend(self, client: TestClient) -> None:
+        response = client.get("/")
+
+        assert response.status_code == 200
+        assert "<fieldset" in response.text
+        assert "<legend" in response.text
+
+    def test_scavenger_progressbar_has_accessible_label(
+        self, client: TestClient
+    ) -> None:
+        client.get("/")
+        response = client.post("/start", data={"mode": "scavenger"})
+
+        assert response.status_code == 200
+        assert 'role="progressbar"' in response.text
+        assert 'aria-label="Scavenger progress"' in response.text

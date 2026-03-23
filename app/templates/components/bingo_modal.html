@@ -1,11 +1,11 @@
-<div class="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+<div class="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50" role="dialog" aria-modal="true" aria-labelledby="modal-title">
     <div class="bg-surface border border-gray-200 p-6 max-w-sm w-full text-center slide-up modal-panel">
         <div class="modal-copy-block">
         {% if session.mode == GameMode.SCAVENGER %}
-        <h2 class="text-display font-extrabold uppercase tracking-widest text-accent mb-2 text-center">Mission</h2>
+        <h2 id="modal-title" class="text-display font-extrabold uppercase tracking-widest text-fg mb-2 text-center">Mission</h2>
         <p class="text-muted text-xs uppercase tracking-widest mb-6 text-center">Scavenger hunt complete</p>
         {% else %}
-        <h2 class="text-display font-extrabold uppercase tracking-widest text-accent mb-2 text-center">Bingo</h2>
+        <h2 id="modal-title" class="text-display font-extrabold uppercase tracking-widest text-fg mb-2 text-center">Bingo</h2>
         <p class="text-muted text-xs uppercase tracking-widest mb-6 text-center">Line complete</p>
         {% endif %}
         </div>
@@ -14,7 +14,8 @@
             hx-post="/dismiss-modal"
             hx-target="#game-container"
             hx-swap="outerHTML"
-            class="w-full bg-accent text-dark font-bold py-3 px-6 text-sm uppercase tracking-widest active:bg-accent-light transition-colors">
+            class="w-full bg-accent text-dark font-bold py-3 px-6 text-sm uppercase tracking-widest active:bg-accent-light transition-colors"
+            autofocus>
             Keep Playing
         </button>
     </div>

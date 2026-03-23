@@ -59,29 +59,31 @@
                 hx-target="#game-container"
                 hx-swap="outerHTML"
                 class="mode-select-form">
-                <p class="mode-select-label">Mission Mode</p>
-                <div class="mode-select-options">
-                    <label class="mode-select-option" for="mode-bingo">
-                        <input
-                            id="mode-bingo"
-                            type="radio"
-                            name="mode"
-                            value="bingo"
-                            {% if session.mode == GameMode.BINGO %}checked{% endif %}>
-                        <span class="mode-select-control" aria-hidden="true"></span>
-                        <span class="mode-select-text">Bingo</span>
-                    </label>
-                    <label class="mode-select-option" for="mode-scavenger">
-                        <input
-                            id="mode-scavenger"
-                            type="radio"
-                            name="mode"
-                            value="scavenger"
-                            {% if session.mode == GameMode.SCAVENGER %}checked{% endif %}>
-                        <span class="mode-select-control" aria-hidden="true"></span>
-                        <span class="mode-select-text">Scavenger Hunt</span>
-                    </label>
-                </div>
+                <fieldset>
+                    <legend class="mode-select-label">Mission Mode</legend>
+                    <div class="mode-select-options">
+                        <label class="mode-select-option" for="mode-bingo">
+                            <input
+                                id="mode-bingo"
+                                type="radio"
+                                name="mode"
+                                value="bingo"
+                                {% if session.mode == GameMode.BINGO %}checked{% endif %}>
+                            <span class="mode-select-control" aria-hidden="true"></span>
+                            <span class="mode-select-text">Bingo</span>
+                        </label>
+                        <label class="mode-select-option" for="mode-scavenger">
+                            <input
+                                id="mode-scavenger"
+                                type="radio"
+                                name="mode"
+                                value="scavenger"
+                                {% if session.mode == GameMode.SCAVENGER %}checked{% endif %}>
+                            <span class="mode-select-control" aria-hidden="true"></span>
+                            <span class="mode-select-text">Scavenger Hunt</span>
+                        </label>
+                    </div>
+                </fieldset>
                 <button type="submit" class="dossier-authorize-btn">
                     Start Game
                 </button>
