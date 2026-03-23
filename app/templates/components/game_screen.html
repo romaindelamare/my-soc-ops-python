@@ -1,7 +1,7 @@
 <div id="game-container">
-<div class="flex flex-col min-h-full bg-gray-50">
+<div class="flex flex-col min-h-full bg-gray-50 game-shell {% if session.mode == GameMode.SCAVENGER %}game-shell-scavenger{% endif %}">
     <!-- Header -->
-    <header class="flex items-center justify-between p-3 border-b border-gray-200">
+    <header class="flex items-center justify-between p-3 border-b border-gray-200 game-topbar">
         <button
             hx-post="/reset"
             hx-target="#game-container"
@@ -10,19 +10,45 @@
             &larr; Back
         </button>
         <h1 class="font-extrabold uppercase tracking-widest text-sm">Soc Ops</h1>
-        <div class="w-16"></div>
+        <p class="text-xs uppercase tracking-wide text-muted">
+            {% if session.mode == GameMode.BINGO %}
+            Bingo
+            {% else %}
+            Scavenger Hunt
+            {% endif %}
+        </p>
     </header>
 
-    <!-- Bingo indicator -->
+    <!-- Mode indicator -->
     {% if session.has_bingo %}
     <div class="text-accent text-center py-2 font-bold text-xs uppercase tracking-widest border-b border-gray-200">
         Bingo &mdash; Line complete
     </div>
+    {% elif session.has_scavenger_complete %}
+    <div class="text-accent text-center py-2 font-bold text-xs uppercase tracking-widest border-b border-gray-200">
+        Scavenger Hunt &mdash; Mission complete
+    </div>
+    {% endif %}
+
+    {% if session.mode == GameMode.SCAVENGER and session.scavenger_total_count %}
+    <div class="hunt-progress-bar-wrap border-b border-gray-200 game-progress-sticky">
+        <div class="hunt-progress-label">
+            <span>Progress</span>
+            <span>{{ session.scavenger_marked_count }}/{{ session.scavenger_total_count }} · {{ session.scavenger_progress_percent }}%</span>
+        </div>
+        <div class="hunt-progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="{{ session.scavenger_progress_percent }}">
+            <div class="hunt-progress-fill" style="width: {{ session.scavenger_progress_percent }}%;"></div>
+        </div>
+    </div>
     {% endif %}
 
     <!-- Board -->
-    <div class="flex-1 flex items-center justify-center p-3">
+    <div class="flex-1 flex {% if session.mode == GameMode.SCAVENGER %}items-start game-board-region-scavenger{% else %}items-center{% endif %} justify-center p-3 game-board-region">
+        {% if session.mode == GameMode.BINGO %}
         {% include "components/bingo_board.html" %}
+        {% else %}
+        {% include "components/scavenger_list.html" %}
+        {% endif %}
     </div>
 </div>
 

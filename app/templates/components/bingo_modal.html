@@ -1,7 +1,14 @@
 <div class="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-    <div class="bg-surface border border-gray-200 p-6 max-w-xs w-full text-center slide-up">
-        <h2 class="text-display font-extrabold uppercase tracking-widest text-accent mb-2">Bingo</h2>
-        <p class="text-muted text-xs uppercase tracking-widest mb-6">Line complete</p>
+    <div class="bg-surface border border-gray-200 p-6 max-w-sm w-full text-center slide-up modal-panel">
+        <div class="modal-copy-block">
+        {% if session.mode == GameMode.SCAVENGER %}
+        <h2 class="text-display font-extrabold uppercase tracking-widest text-accent mb-2 text-center">Mission</h2>
+        <p class="text-muted text-xs uppercase tracking-widest mb-6 text-center">Scavenger hunt complete</p>
+        {% else %}
+        <h2 class="text-display font-extrabold uppercase tracking-widest text-accent mb-2 text-center">Bingo</h2>
+        <p class="text-muted text-xs uppercase tracking-widest mb-6 text-center">Line complete</p>
+        {% endif %}
+        </div>
 
         <button
             hx-post="/dismiss-modal"

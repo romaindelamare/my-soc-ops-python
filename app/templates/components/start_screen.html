@@ -18,24 +18,24 @@
             <p class="dossier-section-tag">Field Directives</p>
             <ul class="dossier-checklist">
                 <li class="dossier-check-item">
-                    <span class="dossier-check-box">▣</span>
+                    <span class="dossier-check-box">◆</span>
                     <div class="dossier-check-body">
                         <span class="dossier-check-code">DIRECTIVE 01 —</span>
-                        Find people who match the prompts
+                        <span class="dossier-check-text">Find people who match the prompts</span>
                     </div>
                 </li>
                 <li class="dossier-check-item">
-                    <span class="dossier-check-box">▣</span>
+                    <span class="dossier-check-box">◆</span>
                     <div class="dossier-check-body">
                         <span class="dossier-check-code">DIRECTIVE 02 —</span>
-                        Tap a square when you find a match
+                        <span class="dossier-check-text">Tap a square when you find a match</span>
                     </div>
                 </li>
                 <li class="dossier-check-item">
-                    <span class="dossier-check-box">▣</span>
+                    <span class="dossier-check-box">◆</span>
                     <div class="dossier-check-body">
                         <span class="dossier-check-code">DIRECTIVE 03 —</span>
-                        Get 5 in a row to win
+                        <span class="dossier-check-text">Get 5 in a row to win</span>
                     </div>
                 </li>
             </ul>
@@ -54,13 +54,38 @@
                 GitHub Pages hosts a static preview. Run locally for full gameplay.
             </p>
             {% else %}
-            <button
+            <form
                 hx-post="/start"
                 hx-target="#game-container"
                 hx-swap="outerHTML"
-                class="dossier-authorize-btn">
-                Start Game
-            </button>
+                class="mode-select-form">
+                <p class="mode-select-label">Mission Mode</p>
+                <div class="mode-select-options">
+                    <label class="mode-select-option" for="mode-bingo">
+                        <input
+                            id="mode-bingo"
+                            type="radio"
+                            name="mode"
+                            value="bingo"
+                            {% if session.mode == GameMode.BINGO %}checked{% endif %}>
+                        <span class="mode-select-control" aria-hidden="true"></span>
+                        <span class="mode-select-text">Bingo</span>
+                    </label>
+                    <label class="mode-select-option" for="mode-scavenger">
+                        <input
+                            id="mode-scavenger"
+                            type="radio"
+                            name="mode"
+                            value="scavenger"
+                            {% if session.mode == GameMode.SCAVENGER %}checked{% endif %}>
+                        <span class="mode-select-control" aria-hidden="true"></span>
+                        <span class="mode-select-text">Scavenger Hunt</span>
+                    </label>
+                </div>
+                <button type="submit" class="dossier-authorize-btn">
+                    Start Game
+                </button>
+            </form>
             {% endif %}
         </div>
 

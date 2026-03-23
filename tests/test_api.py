@@ -41,6 +41,27 @@ class TestStartGame:
         assert response.text.count('hx-post="/toggle/') == 24  # 24 + 1 free space
 
 
+class TestScavengerHuntMode:
+    def test_start_scavenger_returns_checklist_with_progress(
+        self, client: TestClient
+    ) -> None:
+        client.get("/")
+        response = client.post("/start", data={"mode": "scavenger"})
+        assert response.status_code == 200
+        assert "Scavenger Hunt" in response.text
+        assert "Scavenger checklist" in response.text
+        assert "1/25" in response.text
+        assert "4%" in response.text
+
+    def test_scavenger_toggle_updates_progress(self, client: TestClient) -> None:
+        client.get("/")
+        client.post("/start", data={"mode": "scavenger"})
+        response = client.post("/toggle/0")
+        assert response.status_code == 200
+        assert "2/25" in response.text
+        assert "8%" in response.text
+
+
 class TestToggleSquare:
     def test_toggle_marks_square(self, client: TestClient) -> None:
         client.get("/")
@@ -59,6 +80,17 @@ class TestResetGame:
         assert response.status_code == 200
         assert "Start Game" in response.text
         assert "Social Bingo" in response.text
+
+    def test_reset_keeps_last_selected_mode(self, client: TestClient) -> None:
+        client.get("/")
+        client.post("/start", data={"mode": "scavenger"})
+        response = client.post("/reset")
+        assert response.status_code == 200
+        assert 'id="mode-scavenger"' in response.text
+        scavenger_input = response.text.split('id="mode-scavenger"', 1)[1].split(
+            ">", 1
+        )[0]
+        assert "checked" in scavenger_input
 
 
 class TestDismissModal:

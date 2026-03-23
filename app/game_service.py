@@ -6,13 +6,14 @@ from app.game_logic import (
     get_winning_square_ids,
     toggle_square,
 )
-from app.models import BingoLine, BingoSquareData, GameState
+from app.models import BingoLine, BingoSquareData, GameMode, GameState
 
 
 @dataclass
 class GameSession:
     """Holds the state for a single game session."""
 
+    mode: GameMode = GameMode.BINGO
     game_state: GameState = GameState.START
     board: list[BingoSquareData] = field(default_factory=list)
     winning_line: BingoLine | None = None
@@ -24,9 +25,28 @@ class GameSession:
 
     @property
     def has_bingo(self) -> bool:
-        return self.game_state == GameState.BINGO
+        return self.mode == GameMode.BINGO and self.game_state == GameState.BINGO
 
-    def start_game(self) -> None:
+    @property
+    def has_scavenger_complete(self) -> bool:
+        return self.mode == GameMode.SCAVENGER and self.game_state == GameState.BINGO
+
+    @property
+    def scavenger_marked_count(self) -> int:
+        return sum(1 for square in self.board if square.is_marked)
+
+    @property
+    def scavenger_total_count(self) -> int:
+        return len(self.board)
+
+    @property
+    def scavenger_progress_percent(self) -> int:
+        if self.scavenger_total_count == 0:
+            return 0
+        return int((self.scavenger_marked_count * 100) / self.scavenger_total_count)
+
+    def start_game(self, mode: GameMode = GameMode.BINGO) -> None:
+        self.mode = mode
         self.board = generate_board()
         self.winning_line = None
         self.game_state = GameState.PLAYING
@@ -37,12 +57,19 @@ class GameSession:
             return
         self.board = toggle_square(self.board, square_id)
 
-        if self.winning_line is None:
+        if self.mode == GameMode.BINGO and self.winning_line is None:
             bingo = check_bingo(self.board)
             if bingo is not None:
                 self.winning_line = bingo
                 self.game_state = GameState.BINGO
                 self.show_bingo_modal = True
+
+        if self.mode == GameMode.SCAVENGER and all(
+            square.is_marked for square in self.board
+        ):
+            self.winning_line = None
+            self.game_state = GameState.BINGO
+            self.show_bingo_modal = True
 
     def reset_game(self) -> None:
         self.game_state = GameState.START

@@ -1,0 +1,28 @@
+<div class="hunt-list-wrap">
+    <ul class="hunt-checklist" aria-label="Scavenger checklist">
+        {% for square in session.board %}
+        <li>
+            <button
+                {% if not square.is_free_space %}
+                hx-post="/toggle/{{ square.id }}"
+                hx-target="#game-container"
+                hx-swap="outerHTML show:none"
+                {% endif %}
+                {% if square.is_free_space %}disabled{% endif %}
+                class="hunt-item{% if square.is_marked %} is-marked{% endif %}{% if square.is_free_space %} is-free-space{% endif %}"
+                aria-pressed="{{ 'true' if square.is_marked else 'false' }}"
+                aria-label="{{ square.text }}">
+                <span class="hunt-box" aria-hidden="true">
+                    {% if square.is_marked %}☑{% else %}☐{% endif %}
+                </span>
+                <span class="hunt-item-text">
+                    {{ square.text }}
+                    {% if square.is_free_space %}
+                    <span class="hunt-item-tag">auto-checked</span>
+                    {% endif %}
+                </span>
+            </button>
+        </li>
+        {% endfor %}
+    </ul>
+</div>

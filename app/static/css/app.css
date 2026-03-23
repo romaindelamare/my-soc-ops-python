@@ -42,6 +42,7 @@ body {
 .flex-col { flex-direction: column; }
 .flex-1 { flex: 1 1 0%; }
 .items-center { align-items: center; }
+.items-start { align-items: flex-start; }
 .justify-center { justify-content: center; }
 .justify-between { justify-content: space-between; }
 
@@ -306,7 +307,7 @@ button:disabled {
 
 .dossier-check-item {
     display: flex;
-    align-items: flex-start;
+    align-items: center;
     gap: 0.75rem;
     padding: 0.625rem 0;
     border-top: 1px solid var(--border);
@@ -319,24 +320,36 @@ button:disabled {
 
 .dossier-check-box {
     font-size: 0.75rem;
+    font-weight: 700;
     color: var(--accent);
     flex-shrink: 0;
-    line-height: 1.6;
+    line-height: 1.15;
 }
 
 .dossier-check-body {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    align-items: center;
+    column-gap: 0.35rem;
     font-size: 0.875rem;
     color: var(--fg);
-    line-height: 1.5;
+    line-height: 1.45;
+    width: 100%;
 }
 
 .dossier-check-code {
+    display: block;
     font-size: 0.5rem;
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
     color: var(--muted);
-    margin-right: 0.25rem;
+    line-height: 1.2;
+}
+
+.dossier-check-text {
+    display: block;
+    line-height: 1.45;
 }
 
 .dossier-footer {
@@ -398,4 +411,238 @@ button:disabled {
     margin: 0.75rem 0 0;
     text-align: center;
     line-height: 1.5;
+}
+
+.mode-select-form {
+    display: grid;
+    gap: 0.75rem;
+}
+
+.mode-select-label {
+    margin: 0;
+    font-size: 0.5625rem;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.mode-select-options {
+    display: grid;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.mode-select-option {
+    border: 1px solid var(--border);
+    padding: 0.5rem 0.625rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--fg);
+    cursor: pointer;
+    background-color: var(--surface);
+    transition: border-color 100ms ease-out, background-color 100ms ease-out;
+}
+
+.mode-select-option input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.mode-select-control {
+    width: 0.875rem;
+    height: 0.875rem;
+    border: 1px solid var(--muted);
+    background-color: var(--surface-up);
+    flex-shrink: 0;
+    position: relative;
+}
+
+.mode-select-control::after {
+    content: "";
+    position: absolute;
+    inset: 0.125rem;
+    background-color: transparent;
+}
+
+.mode-select-text {
+    line-height: 1.4;
+}
+
+.mode-select-option input:checked + .mode-select-control {
+    border-color: var(--accent);
+}
+
+.mode-select-option input:checked + .mode-select-control::after {
+    background-color: var(--accent);
+}
+
+.mode-select-option:has(input:checked) {
+    border-color: var(--accent);
+    background-color: color-mix(in srgb, var(--accent) 12%, var(--surface));
+}
+
+.game-topbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 35;
+    background-color: var(--bg);
+}
+
+.game-shell {
+    padding-top: 3.125rem;
+}
+
+.game-shell-scavenger {
+    padding-top: 6.5rem;
+}
+
+.game-board-region-scavenger {
+    padding-top: 0.75rem;
+}
+
+.hunt-progress-bar-wrap {
+    padding: 1.5rem 0.75rem 0.75rem;
+    background-image: linear-gradient(
+        to right,
+        rgba(255, 73, 38, 0.08),
+        rgba(255, 73, 38, 0)
+    );
+}
+
+.game-progress-sticky {
+    position: fixed;
+    top: 3.125rem;
+    left: 0;
+    right: 0;
+    z-index: 34;
+    background-color: var(--bg);
+}
+
+.hunt-progress-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.625rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--muted);
+    margin-bottom: 0.5rem;
+}
+
+.hunt-progress-track {
+    width: 100%;
+    height: 0.625rem;
+    border: 1px solid var(--border);
+    background-color: #121212;
+}
+
+.hunt-progress-fill {
+    height: 100%;
+    background: linear-gradient(
+        90deg,
+        #ff4926 0%,
+        #ff5c30 45%,
+        #ff4926 100%
+    );
+    background-size: 200% 100%;
+    animation: huntProgressPulse 1.2s linear infinite;
+    transition: width 150ms ease-out;
+}
+
+.hunt-list-wrap {
+    width: 100%;
+    max-width: 28rem;
+    margin: 0 auto;
+}
+
+.hunt-checklist {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: 1px solid var(--border);
+}
+
+.hunt-item {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid var(--border);
+    padding: 0.625rem 0.75rem;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.625rem;
+    text-align: left;
+    color: var(--fg);
+    background-color: var(--surface);
+    transition: background-color 100ms ease-out;
+}
+
+.hunt-checklist li:last-child .hunt-item {
+    border-bottom: none;
+}
+
+.hunt-item:active {
+    background-color: var(--surface-up);
+}
+
+.hunt-item.is-marked {
+    background-color: color-mix(in srgb, var(--accent) 18%, var(--surface));
+}
+
+.hunt-item.is-free-space {
+    border-left: 2px solid var(--accent);
+}
+
+.hunt-item:disabled {
+    opacity: 1;
+}
+
+.hunt-box {
+    color: var(--accent);
+    font-size: 0.875rem;
+    line-height: 1.3;
+    flex-shrink: 0;
+}
+
+.hunt-item-text {
+    font-size: 0.875rem;
+    line-height: 1.45;
+    color: var(--fg);
+}
+
+.hunt-item.is-marked .hunt-item-text {
+    color: var(--fg);
+}
+
+.hunt-item-tag {
+    margin-left: 0.5rem;
+    font-size: 0.5625rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+}
+
+.modal-panel {
+    max-width: 26rem;
+}
+
+.modal-copy-block {
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+@keyframes huntProgressPulse {
+    from {
+        background-position: 0% 50%;
+    }
+    to {
+        background-position: 100% 50%;
+    }
 }
