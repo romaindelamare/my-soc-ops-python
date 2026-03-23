@@ -1,1 +1,1 @@
-# constants.py — reserved for future app-wide constants
+# app/constants.py
